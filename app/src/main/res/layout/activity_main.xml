@@ -45,7 +45,8 @@
             android:padding="0dp"
             android:text=""
             android:textAlignment="center"
-            android:textSize="50sp" />
+            android:textSize="50sp"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/btn2"
@@ -58,6 +59,7 @@
             android:padding="0dp"
             android:text=""
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textSize="50sp" />
 
         <Button
@@ -71,6 +73,7 @@
             android:padding="0dp"
             android:text=""
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textSize="50sp" />
 
     </LinearLayout>
@@ -91,6 +94,7 @@
             android:onClick="mButton4"
             android:padding="0dp"
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textSize="50sp" />
 
         <Button
@@ -103,6 +107,7 @@
             android:onClick="mButton5"
             android:padding="0dp"
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textSize="50sp" />
 
         <Button
@@ -115,6 +120,7 @@
             android:onClick="mButton6"
             android:padding="0dp"
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textSize="50sp" />
     </LinearLayout>
 
@@ -134,6 +140,7 @@
             android:onClick="mButton7"
             android:padding="0dp"
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textSize="50sp" />
 
         <Button
@@ -146,6 +153,7 @@
             android:onClick="mButton8"
             android:padding="0dp"
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textSize="50sp" />
 
         <Button
@@ -158,6 +166,7 @@
             android:onClick="mButton9"
             android:padding="0dp"
             android:textAlignment="center"
+            android:textAllCaps="false"
             android:textSize="50sp" />
     </LinearLayout>
 
@@ -201,7 +210,7 @@
         <LinearLayout
             android:id="@+id/LLayoutRbP1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:orientation="horizontal">
 
             <TextView
@@ -212,49 +221,32 @@
                 android:text="Player 1"
                 android:textStyle="bold" />
 
-            <RadioGroup
-                android:id="@+id/RGroupP1"
+            <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="0"
+                android:text="SYMBOL: " />
 
-                <RadioButton
-                    android:id="@+id/rbOplay1"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="0"
-                    android:onClick="mRBtnOP1"
-                    android:text="O"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/rbXplay1"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="0"
-                    android:onClick="mRBtnXP1"
-                    android:text="X"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/rbZplay1"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:onClick="mRBtnZP1"
-                    android:text="Z"
-                    android:textStyle="bold" />
-
-            </RadioGroup>
+            <EditText
+                android:id="@+id/editTxtP1"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:ems="10"
+                android:inputType="text|textCapCharacters"
+                android:maxLength="1"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textIsSelectable="false"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/LLayoutBP1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="0"
             android:orientation="horizontal">
 
@@ -292,8 +284,7 @@
         <LinearLayout
             android:id="@+id/LLayoutRbP2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_height="40dp"
             android:orientation="horizontal">
 
             <TextView
@@ -304,48 +295,30 @@
                 android:text="Player 2"
                 android:textStyle="bold" />
 
-            <RadioGroup
-                android:id="@+id/RGroupP2"
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text="SYMBOL: " />
 
-                <RadioButton
-                    android:id="@+id/rbOplay2"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="0"
-                    android:onClick="mRBtnOP2"
-                    android:text="O"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/rbXplay2"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="0"
-                    android:onClick="mRBtnXP2"
-                    android:text="X"
-                    android:textStyle="bold" />
-
-                <RadioButton
-                    android:id="@+id/rbZplay2"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:onClick="mRBtnZP2"
-                    android:text="Z"
-                    android:textStyle="bold" />
-            </RadioGroup>
+            <EditText
+                android:id="@+id/editTxtP2"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:ems="10"
+                android:inputType="text|textCapCharacters"
+                android:maxLength="1"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/LLayoutBP2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:orientation="horizontal">
 
             <Button

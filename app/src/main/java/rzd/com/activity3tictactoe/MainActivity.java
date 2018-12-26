@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,9 +25,7 @@ public class MainActivity extends AppCompatActivity {
             mButtonColorRedP2, mButtonColorYellowP2, mButtonColorBlueP2,
             mBtnSettings;
     TextView mTxtViewResult;
-    RadioButton mRBtnOp1, mRBtnXp1, mRBtnZp1,
-            mRBtnOp2, mRBtnXp2, mRBtnZp2, radioButton, radioButton1;
-    RadioGroup mRadioGroupP1, mRadioGroupP2;
+    EditText mEditTxtP1, mEditTxtP2;
     int mPlayerTurn;
 
 
@@ -34,20 +34,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mEditTxtP1 = findViewById(R.id.editTxtP1);
+        mEditTxtP2 = findViewById(R.id.editTxtP2);
         mLLayoutPlayer = findViewById(R.id.LLayoutPlayer);
-        mLLayout1 = findViewById(R.id.LLayoutBP1);
-        mLLayout2 = findViewById(R.id.LLayoutRbP1);
-        mLLayout3 = findViewById(R.id.LLayoutBP2);
-        mLLayout4 = findViewById(R.id.LLayoutRbP2);
         mBtnSettings = findViewById(R.id.btnSettings);
-        mRBtnOp1 = findViewById(R.id.rbOplay1);
-        mRBtnOp2 = findViewById(R.id.rbOplay2);
-        mRBtnXp1 = findViewById(R.id.rbXplay1);
-        mRBtnXp2 = findViewById(R.id.rbXplay2);
-        mRBtnZp1 = findViewById(R.id.rbZplay1);
-        mRBtnZp2 = findViewById(R.id.rbZplay2);
-        mRadioGroupP1 = findViewById(R.id.RGroupP1);
-        mRadioGroupP2 = findViewById(R.id.RGroupP2);
         mButton1 = findViewById(R.id.btn1);
         mButton2 = findViewById(R.id.btn2);
         mButton3 = findViewById(R.id.btn3);
@@ -105,46 +95,7 @@ public class MainActivity extends AppCompatActivity {
         startBtn9();
     }
 
-
-    //    onclick RadioButton
-    public void mRBtnOP1(View v) {
-        mRBtnOp2.setEnabled(false);
-        mRBtnXp2.setEnabled(true);
-        mRBtnZp2.setEnabled(true);
-    }
-
-    public void mRBtnXP1(View v) {
-        mRBtnXp2.setEnabled(false);
-        mRBtnOp2.setEnabled(true);
-        mRBtnZp2.setEnabled(true);
-    }
-
-    public void mRBtnZP1(View v) {
-        mRBtnZp2.setEnabled(false);
-        mRBtnOp2.setEnabled(true);
-        mRBtnXp2.setEnabled(true);
-    }
-
-    public void mRBtnOP2(View v) {
-        mRBtnOp1.setEnabled(false);
-        mRBtnXp1.setEnabled(true);
-        mRBtnZp1.setEnabled(true);
-    }
-
-    public void mRBtnXP2(View v) {
-        mRBtnXp1.setEnabled(false);
-        mRBtnOp1.setEnabled(true);
-        mRBtnZp1.setEnabled(true);
-    }
-
-    public void mRBtnZP2(View v) {
-        mRBtnZp1.setEnabled(false);
-        mRBtnOp1.setEnabled(true);
-        mRBtnXp1.setEnabled(true);
-    }
-
-
-    //    onclick Button
+    //    onclick Button Color
     public void mBtnColor1P1(View v) {
         mButtonColorRedP1.setText("SELECTED");
         mButtonColorRedP2.setText("");
@@ -229,30 +180,19 @@ public class MainActivity extends AppCompatActivity {
     //inputting of symbols and background color
     public void startBtn1() {
 
-        if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
-                || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
-                || (mButtonColorYellowP2.getText() == "" && mButtonColorRedP2.getText() == "" && mButtonColorBlueP2.getText() == "")) {
-            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setMessage("Please select a color and a symbol first before starting the game.");
-            alertDialog.setTitle("Error");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            alertDialog.show();
-            mTxtViewResult.setText("Result");
+        if(checkEmpty() == true){
+            alertDialogEmpty();
+        }
+        else if (compareSymbol() == true) {
+            alertDialogSymbol();
+        } else if (checkColor() == true) {
+            alertDialogColor();
         } else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            int selectedID1 = mRadioGroupP1.getCheckedRadioButtonId();
-            int selectedID2 = mRadioGroupP2.getCheckedRadioButtonId();
-            radioButton = findViewById(selectedID1);
-            radioButton1 = findViewById(selectedID2);
             mPlayerTurn = (mPlayerTurn + 1) % 2;
+
             if (mPlayerTurn == 1) {
-                String value = radioButton.getText().toString();
-                mButton1.setText(value);
+                mButton1.setText(mEditTxtP1.getText());
                 mButton1.setEnabled(false);
                 if (mButtonColorRedP1.getText().equals("SELECTED"))
                     mButton1.setBackgroundColor(Color.RED);
@@ -263,8 +203,7 @@ public class MainActivity extends AppCompatActivity {
 
 
             } else {
-                String value1 = radioButton1.getText().toString();
-                mButton1.setText(value1);
+                mButton1.setText(mEditTxtP2.getText());
                 mButton1.setEnabled(false);
                 if (mButtonColorRedP2.getText().equals("SELECTED"))
                     mButton1.setBackgroundColor(Color.RED);
@@ -278,29 +217,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void startBtn2() {
-        if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
-                || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
-                || (mButtonColorYellowP2.getText() == "" && mButtonColorRedP2.getText() == "" && mButtonColorBlueP2.getText() == "")) {
-            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setMessage("Please select a color and a symbol first before starting the game.");
-            alertDialog.setTitle("Error");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            alertDialog.show();
+        if(checkEmpty() == true){
+            alertDialogEmpty();
+        }
+        else if (compareSymbol() == true) {
+            alertDialogSymbol();
+        } else if (checkColor() == true) {
+            alertDialogColor();
         } else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            int selectedID1 = mRadioGroupP1.getCheckedRadioButtonId();
-            int selectedID2 = mRadioGroupP2.getCheckedRadioButtonId();
-            radioButton = findViewById(selectedID1);
-            radioButton1 = findViewById(selectedID2);
             mPlayerTurn = (mPlayerTurn + 1) % 2;
             if (mPlayerTurn == 1) {
-                String value = radioButton.getText().toString();
-                mButton2.setText(value);
+                mButton2.setText(mEditTxtP1.getText());
                 mButton2.setEnabled(false);
                 if (mButtonColorRedP1.getText().equals("SELECTED"))
                     mButton2.setBackgroundColor(Color.RED);
@@ -309,8 +237,7 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP1.getText().equals("SELECTED"))
                     mButton2.setBackgroundColor(Color.YELLOW);
             } else {
-                String value1 = radioButton1.getText().toString();
-                mButton2.setText(value1);
+                mButton2.setText(mEditTxtP2.getText());
                 mButton2.setEnabled(false);
                 if (mButtonColorRedP2.getText().equals("SELECTED"))
                     mButton2.setBackgroundColor(Color.RED);
@@ -323,29 +250,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void startBtn3() {
-        if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
-                || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
-                || (mButtonColorYellowP2.getText() == "" && mButtonColorRedP2.getText() == "" && mButtonColorBlueP2.getText() == "")) {
-            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setMessage("Please select a color and a symbol first before starting the game.");
-            alertDialog.setTitle("Error");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            alertDialog.show();
+        if(checkEmpty() == true){
+            alertDialogEmpty();
+        }
+        else if (compareSymbol() == true) {
+            alertDialogSymbol();
+        } else if (checkColor() == true) {
+            alertDialogColor();
         } else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            int selectedID1 = mRadioGroupP1.getCheckedRadioButtonId();
-            int selectedID2 = mRadioGroupP2.getCheckedRadioButtonId();
-            radioButton = findViewById(selectedID1);
-            radioButton1 = findViewById(selectedID2);
             mPlayerTurn = (mPlayerTurn + 1) % 2;
             if (mPlayerTurn == 1) {
-                String value = radioButton.getText().toString();
-                mButton3.setText(value);
+                mButton3.setText(mEditTxtP1.getText());
                 mButton3.setEnabled(false);
                 if (mButtonColorRedP1.getText().equals("SELECTED"))
                     mButton3.setBackgroundColor(Color.RED);
@@ -354,8 +270,7 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP1.getText().equals("SELECTED"))
                     mButton3.setBackgroundColor(Color.YELLOW);
             } else {
-                String value1 = radioButton1.getText().toString();
-                mButton3.setText(value1);
+                mButton3.setText(mEditTxtP2.getText());
                 mButton3.setEnabled(false);
                 if (mButtonColorRedP2.getText().equals("SELECTED"))
                     mButton3.setBackgroundColor(Color.RED);
@@ -368,29 +283,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void startBtn4() {
-        if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
-                || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
-                || (mButtonColorYellowP2.getText() == "" && mButtonColorRedP2.getText() == "" && mButtonColorBlueP2.getText() == "")) {
-            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setMessage("Please select a color and a symbol first before starting the game.");
-            alertDialog.setTitle("Error");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            alertDialog.show();
+        if(checkEmpty() == true){
+            alertDialogEmpty();
+        }
+        else if (compareSymbol() == true) {
+            alertDialogSymbol();
+        } else if (checkColor() == true) {
+            alertDialogColor();
         } else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            int selectedID1 = mRadioGroupP1.getCheckedRadioButtonId();
-            int selectedID2 = mRadioGroupP2.getCheckedRadioButtonId();
-            radioButton = findViewById(selectedID1);
-            radioButton1 = findViewById(selectedID2);
             mPlayerTurn = (mPlayerTurn + 1) % 2;
             if (mPlayerTurn == 1) {
-                String value = radioButton.getText().toString();
-                mButton4.setText(value);
+                mButton4.setText(mEditTxtP1.getText());
                 mButton4.setEnabled(false);
                 if (mButtonColorRedP1.getText().equals("SELECTED"))
                     mButton4.setBackgroundColor(Color.RED);
@@ -399,8 +303,7 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP1.getText().equals("SELECTED"))
                     mButton4.setBackgroundColor(Color.YELLOW);
             } else {
-                String value1 = radioButton1.getText().toString();
-                mButton4.setText(value1);
+                mButton4.setText(mEditTxtP2.getText());
                 mButton4.setEnabled(false);
                 if (mButtonColorRedP2.getText().equals("SELECTED"))
                     mButton4.setBackgroundColor(Color.RED);
@@ -413,29 +316,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void startBtn5() {
-        if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
-                || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
-                || (mButtonColorYellowP2.getText() == "" && mButtonColorRedP2.getText() == "" && mButtonColorBlueP2.getText() == "")) {
-            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setMessage("Please select a color and a symbol first before starting the game.");
-            alertDialog.setTitle("Error");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            alertDialog.show();
+        if(checkEmpty() == true){
+            alertDialogEmpty();
+        }
+        else if (compareSymbol() == true) {
+            alertDialogSymbol();
+        } else if (checkColor() == true) {
+            alertDialogColor();
         } else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            int selectedID1 = mRadioGroupP1.getCheckedRadioButtonId();
-            int selectedID2 = mRadioGroupP2.getCheckedRadioButtonId();
-            radioButton = findViewById(selectedID1);
-            radioButton1 = findViewById(selectedID2);
             mPlayerTurn = (mPlayerTurn + 1) % 2;
             if (mPlayerTurn == 1) {
-                String value = radioButton.getText().toString();
-                mButton5.setText(value);
+                mButton5.setText(mEditTxtP1.getText());
                 mButton5.setEnabled(false);
                 if (mButtonColorRedP1.getText().equals("SELECTED"))
                     mButton5.setBackgroundColor(Color.RED);
@@ -444,8 +336,7 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP1.getText().equals("SELECTED"))
                     mButton5.setBackgroundColor(Color.YELLOW);
             } else {
-                String value1 = radioButton1.getText().toString();
-                mButton5.setText(value1);
+                mButton5.setText(mEditTxtP2.getText());
                 mButton5.setEnabled(false);
                 if (mButtonColorRedP2.getText().equals("SELECTED"))
                     mButton5.setBackgroundColor(Color.RED);
@@ -458,29 +349,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void startBtn6() {
-        if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
-                || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
-                || (mButtonColorYellowP2.getText() == "" && mButtonColorRedP2.getText() == "" && mButtonColorBlueP2.getText() == "")) {
-            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setMessage("Please select a color and a symbol first before starting the game.");
-            alertDialog.setTitle("Error");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            alertDialog.show();
+        if(checkEmpty() == true){
+            alertDialogEmpty();
+        }
+        else if (compareSymbol() == true) {
+            alertDialogSymbol();
+        } else if (checkColor() == true) {
+            alertDialogColor();
         } else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            int selectedID1 = mRadioGroupP1.getCheckedRadioButtonId();
-            int selectedID2 = mRadioGroupP2.getCheckedRadioButtonId();
-            radioButton = findViewById(selectedID1);
-            radioButton1 = findViewById(selectedID2);
             mPlayerTurn = (mPlayerTurn + 1) % 2;
             if (mPlayerTurn == 1) {
-                String value = radioButton.getText().toString();
-                mButton6.setText(value);
+                mButton6.setText(mEditTxtP1.getText());
                 mButton6.setEnabled(false);
                 if (mButtonColorRedP1.getText().equals("SELECTED"))
                     mButton6.setBackgroundColor(Color.RED);
@@ -489,8 +369,7 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP1.getText().equals("SELECTED"))
                     mButton6.setBackgroundColor(Color.YELLOW);
             } else {
-                String value1 = radioButton1.getText().toString();
-                mButton6.setText(value1);
+                mButton6.setText(mEditTxtP2.getText());
                 mButton6.setEnabled(false);
                 if (mButtonColorRedP2.getText().equals("SELECTED"))
                     mButton6.setBackgroundColor(Color.RED);
@@ -503,29 +382,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void startBtn7() {
-        if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
-                || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
-                || (mButtonColorYellowP2.getText() == "" && mButtonColorRedP2.getText() == "" && mButtonColorBlueP2.getText() == "")) {
-            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setMessage("Please select a color and a symbol first before starting the game.");
-            alertDialog.setTitle("Error");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            alertDialog.show();
+        if(checkEmpty() == true){
+            alertDialogEmpty();
+        }
+        else if (compareSymbol() == true) {
+            alertDialogSymbol();
+        } else if (checkColor() == true) {
+            alertDialogColor();
         } else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            int selectedID1 = mRadioGroupP1.getCheckedRadioButtonId();
-            int selectedID2 = mRadioGroupP2.getCheckedRadioButtonId();
-            radioButton = findViewById(selectedID1);
-            radioButton1 = findViewById(selectedID2);
             mPlayerTurn = (mPlayerTurn + 1) % 2;
             if (mPlayerTurn == 1) {
-                String value = radioButton.getText().toString();
-                mButton7.setText(value);
+                mButton7.setText(mEditTxtP1.getText());
                 mButton7.setEnabled(false);
                 if (mButtonColorRedP1.getText().equals("SELECTED"))
                     mButton7.setBackgroundColor(Color.RED);
@@ -534,8 +402,7 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP1.getText().equals("SELECTED"))
                     mButton7.setBackgroundColor(Color.YELLOW);
             } else {
-                String value1 = radioButton1.getText().toString();
-                mButton7.setText(value1);
+                mButton7.setText(mEditTxtP2.getText());
                 mButton7.setEnabled(false);
                 if (mButtonColorRedP2.getText().equals("SELECTED"))
                     mButton7.setBackgroundColor(Color.RED);
@@ -548,29 +415,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void startBtn8() {
-        if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
-                || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
-                || (mButtonColorYellowP2.getText() == "" && mButtonColorRedP2.getText() == "" && mButtonColorBlueP2.getText() == "")) {
-            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setMessage("Please select a color and a symbol first before starting the game.");
-            alertDialog.setTitle("Error");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            alertDialog.show();
+        if(checkEmpty() == true){
+            alertDialogEmpty();
+        }
+        else if (compareSymbol() == true) {
+            alertDialogSymbol();
+        } else if (checkColor() == true) {
+            alertDialogColor();
         } else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            int selectedID1 = mRadioGroupP1.getCheckedRadioButtonId();
-            int selectedID2 = mRadioGroupP2.getCheckedRadioButtonId();
-            radioButton = findViewById(selectedID1);
-            radioButton1 = findViewById(selectedID2);
             mPlayerTurn = (mPlayerTurn + 1) % 2;
             if (mPlayerTurn == 1) {
-                String value = radioButton.getText().toString();
-                mButton8.setText(value);
+                mButton8.setText(mEditTxtP1.getText());
                 mButton8.setEnabled(false);
                 if (mButtonColorRedP1.getText().equals("SELECTED"))
                     mButton8.setBackgroundColor(Color.RED);
@@ -579,8 +435,7 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP1.getText().equals("SELECTED"))
                     mButton8.setBackgroundColor(Color.YELLOW);
             } else {
-                String value1 = radioButton1.getText().toString();
-                mButton8.setText(value1);
+                mButton8.setText(mEditTxtP2.getText());
                 mButton8.setEnabled(false);
                 if (mButtonColorRedP2.getText().equals("SELECTED"))
                     mButton8.setBackgroundColor(Color.RED);
@@ -593,29 +448,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void startBtn9() {
-        if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
-                || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
-                || (mButtonColorYellowP2.getText() == "" && mButtonColorRedP2.getText() == "" && mButtonColorBlueP2.getText() == "")) {
-            final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-            alertDialog.setMessage("Please select a color and a symbol first before starting the game.");
-            alertDialog.setTitle("Error");
-            alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            alertDialog.show();
+        if(checkEmpty() == true){
+            alertDialogEmpty();
+        }
+        else if (compareSymbol() == true) {
+            alertDialogSymbol();
+        } else if (checkColor() == true) {
+            alertDialogColor();
         } else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            int selectedID1 = mRadioGroupP1.getCheckedRadioButtonId();
-            int selectedID2 = mRadioGroupP2.getCheckedRadioButtonId();
-            radioButton = findViewById(selectedID1);
-            radioButton1 = findViewById(selectedID2);
             mPlayerTurn = (mPlayerTurn + 1) % 2;
             if (mPlayerTurn == 1) {
-                String value = radioButton.getText().toString();
-                mButton9.setText(value);
+                mButton9.setText(mEditTxtP1.getText());
                 mButton9.setEnabled(false);
                 if (mButtonColorRedP1.getText().equals("SELECTED"))
                     mButton9.setBackgroundColor(Color.RED);
@@ -624,8 +468,7 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP1.getText().equals("SELECTED"))
                     mButton9.setBackgroundColor(Color.YELLOW);
             } else {
-                String value1 = radioButton1.getText().toString();
-                mButton9.setText(value1);
+                mButton9.setText(mEditTxtP2.getText());
                 mButton9.setEnabled(false);
                 if (mButtonColorRedP2.getText().equals("SELECTED"))
                     mButton9.setBackgroundColor(Color.RED);
@@ -638,16 +481,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
     //enabled disabled layout view for radiobutton and color
     private static void setViewAndChildrenEnabled(View view, boolean enabled) {
         view.setEnabled(enabled);
-            if (view instanceof ViewGroup) {
-                ViewGroup viewGroup = (ViewGroup) view;
-                for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                    View child = viewGroup.getChildAt(i);
-                    setViewAndChildrenEnabled(child, enabled);
-                }
+        if (view instanceof ViewGroup) {
+            ViewGroup viewGroup = (ViewGroup) view;
+            for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                View child = viewGroup.getChildAt(i);
+                setViewAndChildrenEnabled(child, enabled);
+            }
         }
 
     }
@@ -684,7 +526,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void disabledBtnTTT(){
+    public void disabledBtnTTT() {
         mButton1.setEnabled(false);
         mButton2.setEnabled(false);
         mButton3.setEnabled(false);
@@ -694,130 +536,169 @@ public class MainActivity extends AppCompatActivity {
         mButton7.setEnabled(false);
         mButton8.setEnabled(false);
         mButton9.setEnabled(false);
-        }
+    }
 
-    public void checkWinnerBtn1(){
-        if((mButton1.getText().equals(mButton2.getText())) && (mButton1.getText().equals(mButton3.getText()))
+    public void checkWinnerBtn1() {
+        if ((mButton1.getText().equals(mButton2.getText())) && (mButton1.getText().equals(mButton3.getText()))
                 || (mButton1.getText().equals(mButton5.getText()) && (mButton1.getText().equals(mButton9.getText())))
-                || (mButton1.getText().equals(mButton4.getText()) && (mButton1.getText().equals(mButton7.getText()))))
-        {
+                || (mButton1.getText().equals(mButton4.getText()) && (mButton1.getText().equals(mButton7.getText())))) {
             if (mPlayerTurn == 1) {
                 mTxtViewResult.setText("Result: Player 1 Wins");
                 disabledBtnTTT();
-            }
-            else
+            } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
-                disabledBtnTTT();
+            disabledBtnTTT();
         }
     }
-    public void checkWinnerBtn2(){
-        if((mButton2.getText().equals(mButton3.getText())) && (mButton2.getText().equals(mButton1.getText()))
-                || (mButton2.getText().equals(mButton5.getText()) && (mButton2.getText().equals(mButton8.getText()))))
-        {
+    public void checkWinnerBtn2() {
+        if ((mButton2.getText().equals(mButton3.getText())) && (mButton2.getText().equals(mButton1.getText()))
+                || (mButton2.getText().equals(mButton5.getText()) && (mButton2.getText().equals(mButton8.getText())))) {
             if (mPlayerTurn == 1) {
                 mTxtViewResult.setText("Result: Player 1 Wins");
                 disabledBtnTTT();
-            }
-            else
+            } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
-                disabledBtnTTT();
+            disabledBtnTTT();
         }
     }
-    public void checkWinnerBtn3(){
-        if((mButton3.getText().equals(mButton2.getText())) && (mButton3.getText().equals(mButton1.getText()))
+    public void checkWinnerBtn3() {
+        if ((mButton3.getText().equals(mButton2.getText())) && (mButton3.getText().equals(mButton1.getText()))
                 || (mButton3.getText().equals(mButton6.getText()) && (mButton3.getText().equals(mButton9.getText())))
-                || (mButton3.getText().equals(mButton5.getText()) && (mButton3.getText().equals(mButton7.getText()))))
-        {
+                || (mButton3.getText().equals(mButton5.getText()) && (mButton3.getText().equals(mButton7.getText())))) {
             if (mPlayerTurn == 1) {
                 mTxtViewResult.setText("Result: Player 1 Wins");
                 disabledBtnTTT();
-            }
-            else
+            } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
-                disabledBtnTTT();
+            disabledBtnTTT();
         }
     }
-    public void checkWinnerBtn4(){
-        if((mButton4.getText().equals(mButton5.getText())) && (mButton4.getText().equals(mButton6.getText()))
-                || (mButton4.getText().equals(mButton1.getText()) && (mButton4.getText().equals(mButton7.getText()))))
-        {
+    public void checkWinnerBtn4() {
+        if ((mButton4.getText().equals(mButton5.getText())) && (mButton4.getText().equals(mButton6.getText()))
+                || (mButton4.getText().equals(mButton1.getText()) && (mButton4.getText().equals(mButton7.getText())))) {
             if (mPlayerTurn == 1) {
                 mTxtViewResult.setText("Result: Player 1 Wins");
                 disabledBtnTTT();
-            }
-            else
+            } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
-                disabledBtnTTT();
+            disabledBtnTTT();
         }
     }
-    public void checkWinnerBtn5(){
-        if((mButton5.getText().equals(mButton4.getText())) && (mButton5.getText().equals(mButton6.getText()))
+    public void checkWinnerBtn5() {
+        if ((mButton5.getText().equals(mButton4.getText())) && (mButton5.getText().equals(mButton6.getText()))
                 || (mButton5.getText().equals(mButton2.getText())) && (mButton5.getText().equals(mButton8.getText()))
                 || (mButton5.getText().equals(mButton1.getText())) && (mButton5.getText().equals(mButton9.getText()))
-                || (mButton5.getText().equals(mButton3.getText())) && (mButton5.getText().equals(mButton7.getText())))
-        {
+                || (mButton5.getText().equals(mButton3.getText())) && (mButton5.getText().equals(mButton7.getText()))) {
             if (mPlayerTurn == 1) {
                 mTxtViewResult.setText("Result: Player 1 Wins");
                 disabledBtnTTT();
-            }
-            else
+            } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
-                disabledBtnTTT();
+            disabledBtnTTT();
         }
     }
-    public void checkWinnerBtn6(){
-        if((mButton6.getText().equals(mButton5.getText())) && (mButton6.getText().equals(mButton4.getText()))
-                || (mButton6.getText().equals(mButton3.getText()) && (mButton6.getText().equals(mButton9.getText()))))
-        {
+    public void checkWinnerBtn6() {
+        if ((mButton6.getText().equals(mButton5.getText())) && (mButton6.getText().equals(mButton4.getText()))
+                || (mButton6.getText().equals(mButton3.getText()) && (mButton6.getText().equals(mButton9.getText())))) {
             if (mPlayerTurn == 1) {
                 mTxtViewResult.setText("Result: Player 1 Wins");
                 disabledBtnTTT();
-            }
-            else
+            } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
-                disabledBtnTTT();
+            disabledBtnTTT();
         }
     }
-    public void checkWinnerBtn7(){
-        if((mButton7.getText().equals(mButton4.getText())) && (mButton7.getText().equals(mButton1.getText()))
+    public void checkWinnerBtn7() {
+        if ((mButton7.getText().equals(mButton4.getText())) && (mButton7.getText().equals(mButton1.getText()))
                 || (mButton7.getText().equals(mButton8.getText()) && (mButton7.getText().equals(mButton9.getText())))
-                || (mButton7.getText().equals(mButton5.getText()) && (mButton7.getText().equals(mButton3.getText()))))
-        {
+                || (mButton7.getText().equals(mButton5.getText()) && (mButton7.getText().equals(mButton3.getText())))) {
             if (mPlayerTurn == 1) {
                 mTxtViewResult.setText("Result: Player 1 Wins");
                 disabledBtnTTT();
-            }
-            else
+            } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
-                disabledBtnTTT();
+            disabledBtnTTT();
         }
     }
-    public void checkWinnerBtn8(){
-        if((mButton8.getText().equals(mButton7.getText())) && (mButton8.getText().equals(mButton9.getText()))
-                || (mButton8.getText().equals(mButton5.getText()) && (mButton8.getText().equals(mButton2.getText()))))
-        {
+    public void checkWinnerBtn8() {
+        if ((mButton8.getText().equals(mButton7.getText())) && (mButton8.getText().equals(mButton9.getText()))
+                || (mButton8.getText().equals(mButton5.getText()) && (mButton8.getText().equals(mButton2.getText())))) {
             if (mPlayerTurn == 1) {
                 mTxtViewResult.setText("Result: Player 1 Wins");
                 disabledBtnTTT();
-            }
-            else
+            } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
-                disabledBtnTTT();
+            disabledBtnTTT();
         }
     }
-    public void checkWinnerBtn9(){
-        if((mButton9.getText().equals(mButton8.getText())) && (mButton9.getText().equals(mButton7.getText()))
+    public void checkWinnerBtn9() {
+        if ((mButton9.getText().equals(mButton8.getText())) && (mButton9.getText().equals(mButton7.getText()))
                 || (mButton9.getText().equals(mButton6.getText()) && (mButton9.getText().equals(mButton3.getText())))
-                || (mButton9.getText().equals(mButton5.getText()) && (mButton7.getText().equals(mButton1.getText()))))
-        {
+                || (mButton9.getText().equals(mButton5.getText()) && (mButton7.getText().equals(mButton1.getText())))) {
             if (mPlayerTurn == 1) {
                 mTxtViewResult.setText("Result: Player 1 Wins");
                 disabledBtnTTT();
-            }
-            else
+            } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
-                disabledBtnTTT();
+            disabledBtnTTT();
         }
+    }
+
+    public boolean compareSymbol() {
+        if (mEditTxtP1.getText().toString().equals(mEditTxtP2.getText().toString()) ||
+                mEditTxtP2.getText().toString().equals(mEditTxtP1.getText().toString())){
+                return true;
+        }
+                return false;
+    }
+    public boolean checkColor(){
+        if( (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
+                || (mButtonColorYellowP2.getText() == "" && mButtonColorRedP2.getText() == "" && mButtonColorBlueP2.getText() == ""))
+        {
+            return true;
+        }
+        return false;
+    }
+    public boolean checkEmpty(){
+        if(mEditTxtP2.getText().toString().equals("") || mEditTxtP1.getText().toString().equals("")){
+            return true;}
+        return false;
+    }
+    public void alertDialogSymbol(){
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Symbols cant be the same.");
+        alertDialog.setTitle("Error");
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
+    }
+    public void alertDialogColor(){
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Please select a color.");
+        alertDialog.setTitle("Error");
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
+    }
+    public void alertDialogEmpty(){
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setMessage("Please enter symbols.");
+        alertDialog.setTitle("Error");
+        alertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
     }
 
 }
