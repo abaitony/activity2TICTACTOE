@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -72,47 +71,38 @@ public class MainActivity extends AppCompatActivity {
     //onclick of 3x3
     public void mButton1(View v) {
         startBtn1();
-        checkWinner();
     }
 
     public void mButton2(View v) {
         startBtn2();
-        checkWinner();
     }
 
     public void mButton3(View v) {
         startBtn3();
-        checkWinner();
     }
 
     public void mButton4(View v) {
         startBtn4();
-        checkWinner();
     }
 
     public void mButton5(View v) {
         startBtn5();
-        checkWinner();
     }
 
     public void mButton6(View v) {
         startBtn6();
-        checkWinner();
     }
 
     public void mButton7(View v) {
         startBtn7();
-        checkWinner();
     }
 
     public void mButton8(View v) {
         startBtn8();
-        checkWinner();
     }
 
     public void mButton9(View v) {
         startBtn9();
-        checkWinner();
     }
 
 
@@ -231,9 +221,7 @@ public class MainActivity extends AppCompatActivity {
     //reset game
     public void btnReset(View v) {
         setViewAndChildrenEnabled(mLLayoutPlayer, true);
-        resetenablePSide();
         resetTicTacToeBtn();
-        resetTxt();
         mTxtViewResult.setText("Result");
         mPlayerTurn = 0;
     }
@@ -286,9 +274,9 @@ public class MainActivity extends AppCompatActivity {
                     mButton1.setBackgroundColor(Color.YELLOW);
 
             }
+            checkWinnerBtn1();
         }
     }
-
     public void startBtn2() {
         if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
                 || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
@@ -331,9 +319,9 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP2.getText().equals("SELECTED"))
                     mButton2.setBackgroundColor(Color.YELLOW);
             }
+            checkWinnerBtn2();
         }
     }
-
     public void startBtn3() {
         if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
                 || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
@@ -376,9 +364,9 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP2.getText().equals("SELECTED"))
                     mButton3.setBackgroundColor(Color.YELLOW);
             }
+            checkWinnerBtn3();
         }
     }
-
     public void startBtn4() {
         if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
                 || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
@@ -421,9 +409,9 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP2.getText().equals("SELECTED"))
                     mButton4.setBackgroundColor(Color.YELLOW);
             }
+            checkWinnerBtn4();
         }
     }
-
     public void startBtn5() {
         if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
                 || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
@@ -466,9 +454,9 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP2.getText().equals("SELECTED"))
                     mButton5.setBackgroundColor(Color.YELLOW);
             }
+            checkWinnerBtn5();
         }
     }
-
     public void startBtn6() {
         if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
                 || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
@@ -511,9 +499,9 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP2.getText().equals("SELECTED"))
                     mButton6.setBackgroundColor(Color.YELLOW);
             }
+            checkWinnerBtn6();
         }
     }
-
     public void startBtn7() {
         if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
                 || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
@@ -556,9 +544,9 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP2.getText().equals("SELECTED"))
                     mButton7.setBackgroundColor(Color.YELLOW);
             }
+            checkWinnerBtn7();
         }
     }
-
     public void startBtn8() {
         if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
                 || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
@@ -601,9 +589,9 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP2.getText().equals("SELECTED"))
                     mButton8.setBackgroundColor(Color.YELLOW);
             }
+            checkWinnerBtn8();
         }
     }
-
     public void startBtn9() {
         if (mRadioGroupP1.getCheckedRadioButtonId() == -1 || mRadioGroupP2.getCheckedRadioButtonId() == -1
                 || (mButtonColorRedP1.getText() == "" && mButtonColorBlueP1.getText() == "" && mButtonColorYellowP1.getText() == "")
@@ -646,6 +634,7 @@ public class MainActivity extends AppCompatActivity {
                 else if (mButtonColorYellowP2.getText().equals("SELECTED"))
                     mButton9.setBackgroundColor(Color.YELLOW);
             }
+            checkWinnerBtn9();
         }
     }
 
@@ -653,12 +642,12 @@ public class MainActivity extends AppCompatActivity {
     //enabled disabled layout view for radiobutton and color
     private static void setViewAndChildrenEnabled(View view, boolean enabled) {
         view.setEnabled(enabled);
-        if (view instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) view;
-            for (int i = 0; i < viewGroup.getChildCount(); i++) {
-                View child = viewGroup.getChildAt(i);
-                setViewAndChildrenEnabled(child, enabled);
-            }
+            if (view instanceof ViewGroup) {
+                ViewGroup viewGroup = (ViewGroup) view;
+                for (int i = 0; i < viewGroup.getChildCount(); i++) {
+                    View child = viewGroup.getChildAt(i);
+                    setViewAndChildrenEnabled(child, enabled);
+                }
         }
 
     }
@@ -682,13 +671,6 @@ public class MainActivity extends AppCompatActivity {
         mButton8.setBackgroundResource(R.color.defaultColor);
         mButton9.setText("");
         mButton9.setBackgroundResource(R.color.defaultColor);
-
-
-    }
-
-    public void resetenablePSide() {
-        mRadioGroupP1.clearCheck();
-        mRadioGroupP2.clearCheck();
         mButton1.setEnabled(true);
         mButton2.setEnabled(true);
         mButton3.setEnabled(true);
@@ -698,72 +680,11 @@ public class MainActivity extends AppCompatActivity {
         mButton7.setEnabled(true);
         mButton8.setEnabled(true);
         mButton9.setEnabled(true);
+
+
     }
 
-    public void resetTxt() {
-        mButtonColorRedP1.setText("");
-        mButtonColorRedP2.setText("");
-        mButtonColorYellowP1.setText("");
-        mButtonColorYellowP2.setText("");
-        mButtonColorBlueP1.setText("");
-        mButtonColorBlueP2.setText("");
-    }
-
-    public void checkWinner() {
-        if((mButton3.getText().equals("") && mButton2.getText().equals("") && mButton1.getText().equals(""))
-            || (mButton3.getText().equals("") && mButton6.getText().equals("") && mButton9.getText().equals(""))
-            || (mButton7.getText().equals("") && mButton8.getText().equals("") && mButton9.getText().equals(""))
-            || (mButton1.getText().equals("") && mButton4.getText().equals("") && mButton7.getText().equals(""))
-            || (mButton4.getText().equals("") && mButton5.getText().equals("") && mButton6.getText().equals(""))
-            || (mButton2.getText().equals("") && mButton5.getText().equals("") && mButton8.getText().equals(""))
-            || (mButton1.getText().equals("") && mButton5.getText().equals("") && mButton9.getText().equals(""))
-            || (mButton3.getText().equals("") && mButton5.getText().equals("") && mButton7.getText().equals("")))
-                {
-                    mTxtViewResult.setText("Result");
-                }
-        else if((mButton1.getText().toString().equals(mButton2.getText().toString()) &&
-                 mButton1.getText().toString().equals(mButton3.getText().toString()) &&
-                 mButton2.getText().toString().equals(mButton3.getText().toString()))
-                     ||
-                 (mButton1.getText().toString().equals(mButton4.getText().toString()) &&
-                 mButton1.getText().toString().equals(mButton7.getText().toString()) &&
-                 mButton4.getText().toString().equals(mButton7.getText().toString()))
-                     ||
-                 (mButton1.getText().toString().equals(mButton5.getText().toString()) &&
-                 mButton1.getText().toString().equals(mButton9.getText().toString()) &&
-                 mButton5.getText().toString().equals(mButton9.getText().toString()))
-                     ||
-                 (mButton3.getText().toString().equals(mButton6.getText().toString()) &&
-                 mButton3.getText().toString().equals(mButton9.getText().toString()) &&
-                 mButton6.getText().toString().equals(mButton9.getText().toString()))
-                     ||
-                 (mButton7.getText().toString().equals(mButton8.getText().toString()) &&
-                 mButton7.getText().toString().equals(mButton9.getText().toString()) &&
-                 mButton8.getText().toString().equals(mButton9.getText().toString()))
-                     ||
-                 (mButton3.getText().toString().equals(mButton5.getText().toString()) &&
-                 mButton3.getText().toString().equals(mButton7.getText().toString()) &&
-                 mButton5.getText().toString().equals(mButton7.getText().toString()))
-                     ||
-                 (mButton4.getText().toString().equals(mButton5.getText().toString()) &&
-                 mButton4.getText().toString().equals(mButton6.getText().toString()) &&
-                 mButton5.getText().toString().equals(mButton6.getText().toString()))
-                     ||
-                 (mButton2.getText().toString().equals(mButton5.getText().toString()) &&
-                 mButton2.getText().toString().equals(mButton8.getText().toString()) &&
-                 mButton5.getText().toString().equals(mButton8.getText().toString()))
-                )
-                    {
-                        if (mPlayerTurn == 1) {
-                            mTxtViewResult.setText("Result: Player 1 Wins");
-                            //disabledBtnTTT();
-                        }
-                        else
-                            mTxtViewResult.setText("Result: Player 2 Wins");
-                            //disabledBtnTTT();
-                    }
-        }
-        public void disabledBtnTTT(){
+    public void disabledBtnTTT(){
         mButton1.setEnabled(false);
         mButton2.setEnabled(false);
         mButton3.setEnabled(false);
@@ -774,6 +695,130 @@ public class MainActivity extends AppCompatActivity {
         mButton8.setEnabled(false);
         mButton9.setEnabled(false);
         }
+
+    public void checkWinnerBtn1(){
+        if((mButton1.getText().equals(mButton2.getText())) && (mButton1.getText().equals(mButton3.getText()))
+                || (mButton1.getText().equals(mButton5.getText()) && (mButton1.getText().equals(mButton9.getText())))
+                || (mButton1.getText().equals(mButton4.getText()) && (mButton1.getText().equals(mButton7.getText()))))
+        {
+            if (mPlayerTurn == 1) {
+                mTxtViewResult.setText("Result: Player 1 Wins");
+                disabledBtnTTT();
+            }
+            else
+                mTxtViewResult.setText("Result: Player 2 Wins");
+                disabledBtnTTT();
+        }
+    }
+    public void checkWinnerBtn2(){
+        if((mButton2.getText().equals(mButton3.getText())) && (mButton2.getText().equals(mButton1.getText()))
+                || (mButton2.getText().equals(mButton5.getText()) && (mButton2.getText().equals(mButton8.getText()))))
+        {
+            if (mPlayerTurn == 1) {
+                mTxtViewResult.setText("Result: Player 1 Wins");
+                disabledBtnTTT();
+            }
+            else
+                mTxtViewResult.setText("Result: Player 2 Wins");
+                disabledBtnTTT();
+        }
+    }
+    public void checkWinnerBtn3(){
+        if((mButton3.getText().equals(mButton2.getText())) && (mButton3.getText().equals(mButton1.getText()))
+                || (mButton3.getText().equals(mButton6.getText()) && (mButton3.getText().equals(mButton9.getText())))
+                || (mButton3.getText().equals(mButton5.getText()) && (mButton3.getText().equals(mButton7.getText()))))
+        {
+            if (mPlayerTurn == 1) {
+                mTxtViewResult.setText("Result: Player 1 Wins");
+                disabledBtnTTT();
+            }
+            else
+                mTxtViewResult.setText("Result: Player 2 Wins");
+                disabledBtnTTT();
+        }
+    }
+    public void checkWinnerBtn4(){
+        if((mButton4.getText().equals(mButton5.getText())) && (mButton4.getText().equals(mButton6.getText()))
+                || (mButton4.getText().equals(mButton1.getText()) && (mButton4.getText().equals(mButton7.getText()))))
+        {
+            if (mPlayerTurn == 1) {
+                mTxtViewResult.setText("Result: Player 1 Wins");
+                disabledBtnTTT();
+            }
+            else
+                mTxtViewResult.setText("Result: Player 2 Wins");
+                disabledBtnTTT();
+        }
+    }
+    public void checkWinnerBtn5(){
+        if((mButton5.getText().equals(mButton4.getText())) && (mButton5.getText().equals(mButton6.getText()))
+                || (mButton5.getText().equals(mButton2.getText())) && (mButton5.getText().equals(mButton8.getText()))
+                || (mButton5.getText().equals(mButton1.getText())) && (mButton5.getText().equals(mButton9.getText()))
+                || (mButton5.getText().equals(mButton3.getText())) && (mButton5.getText().equals(mButton7.getText())))
+        {
+            if (mPlayerTurn == 1) {
+                mTxtViewResult.setText("Result: Player 1 Wins");
+                disabledBtnTTT();
+            }
+            else
+                mTxtViewResult.setText("Result: Player 2 Wins");
+                disabledBtnTTT();
+        }
+    }
+    public void checkWinnerBtn6(){
+        if((mButton6.getText().equals(mButton5.getText())) && (mButton6.getText().equals(mButton4.getText()))
+                || (mButton6.getText().equals(mButton3.getText()) && (mButton6.getText().equals(mButton9.getText()))))
+        {
+            if (mPlayerTurn == 1) {
+                mTxtViewResult.setText("Result: Player 1 Wins");
+                disabledBtnTTT();
+            }
+            else
+                mTxtViewResult.setText("Result: Player 2 Wins");
+                disabledBtnTTT();
+        }
+    }
+    public void checkWinnerBtn7(){
+        if((mButton7.getText().equals(mButton4.getText())) && (mButton7.getText().equals(mButton1.getText()))
+                || (mButton7.getText().equals(mButton8.getText()) && (mButton7.getText().equals(mButton9.getText())))
+                || (mButton7.getText().equals(mButton5.getText()) && (mButton7.getText().equals(mButton3.getText()))))
+        {
+            if (mPlayerTurn == 1) {
+                mTxtViewResult.setText("Result: Player 1 Wins");
+                disabledBtnTTT();
+            }
+            else
+                mTxtViewResult.setText("Result: Player 2 Wins");
+                disabledBtnTTT();
+        }
+    }
+    public void checkWinnerBtn8(){
+        if((mButton8.getText().equals(mButton7.getText())) && (mButton8.getText().equals(mButton9.getText()))
+                || (mButton8.getText().equals(mButton5.getText()) && (mButton8.getText().equals(mButton2.getText()))))
+        {
+            if (mPlayerTurn == 1) {
+                mTxtViewResult.setText("Result: Player 1 Wins");
+                disabledBtnTTT();
+            }
+            else
+                mTxtViewResult.setText("Result: Player 2 Wins");
+                disabledBtnTTT();
+        }
+    }
+    public void checkWinnerBtn9(){
+        if((mButton9.getText().equals(mButton8.getText())) && (mButton9.getText().equals(mButton7.getText()))
+                || (mButton9.getText().equals(mButton6.getText()) && (mButton9.getText().equals(mButton3.getText())))
+                || (mButton9.getText().equals(mButton5.getText()) && (mButton7.getText().equals(mButton1.getText()))))
+        {
+            if (mPlayerTurn == 1) {
+                mTxtViewResult.setText("Result: Player 1 Wins");
+                disabledBtnTTT();
+            }
+            else
+                mTxtViewResult.setText("Result: Player 2 Wins");
+                disabledBtnTTT();
+        }
+    }
 
 }
 
