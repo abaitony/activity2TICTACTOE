@@ -10,15 +10,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    LinearLayout mLLayoutPlayer, mLLayout1, mLLayout2, mLLayout3, mLLayout4;
+    LinearLayout mLLayoutPlayer;
     Button mButton1, mButton2, mButton3, mButton4, mButton5,
             mButton6, mButton7, mButton8, mButton9, mButtonReset,
             mButtonColorRedP1, mButtonColorYellowP1, mButtonColorBlueP1,
@@ -55,9 +53,8 @@ public class MainActivity extends AppCompatActivity {
         mButtonColorBlueP1 = findViewById(R.id.btnColor3P1);
         mButtonColorBlueP2 = findViewById(R.id.btnColor3P2);
         mTxtViewResult = findViewById(R.id.txtViewResult);
+
     }
-
-
     //onclick of 3x3
     public void mButton1(View v) {
         startBtn1();
@@ -549,6 +546,11 @@ public class MainActivity extends AppCompatActivity {
                 mTxtViewResult.setText("Result: Player 2 Wins");
             disabledBtnTTT();
         }
+        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
+                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
+                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
+            mTxtViewResult.setText("Result: DRAW");
+        }
     }
     public void checkWinnerBtn2() {
         if ((mButton2.getText().equals(mButton3.getText())) && (mButton2.getText().equals(mButton1.getText()))
@@ -559,6 +561,11 @@ public class MainActivity extends AppCompatActivity {
             } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
             disabledBtnTTT();
+        }
+        else if(!mButton1.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
+                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
+                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
+            mTxtViewResult.setText("Result: DRAW");
         }
     }
     public void checkWinnerBtn3() {
@@ -572,6 +579,11 @@ public class MainActivity extends AppCompatActivity {
                 mTxtViewResult.setText("Result: Player 2 Wins");
             disabledBtnTTT();
         }
+        else if(!mButton2.getText().equals("") && !mButton1.getText().equals("") && !mButton4.getText().equals("") &&
+                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
+                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
+            mTxtViewResult.setText("Result: DRAW");
+        }
     }
     public void checkWinnerBtn4() {
         if ((mButton4.getText().equals(mButton5.getText())) && (mButton4.getText().equals(mButton6.getText()))
@@ -582,6 +594,11 @@ public class MainActivity extends AppCompatActivity {
             } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
             disabledBtnTTT();
+        }
+        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton1.getText().equals("") &&
+                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
+                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
+            mTxtViewResult.setText("Result: DRAW");
         }
     }
     public void checkWinnerBtn5() {
@@ -596,6 +613,11 @@ public class MainActivity extends AppCompatActivity {
                 mTxtViewResult.setText("Result: Player 2 Wins");
             disabledBtnTTT();
         }
+        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
+                !mButton1.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
+                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
+            mTxtViewResult.setText("Result: DRAW");
+        }
     }
     public void checkWinnerBtn6() {
         if ((mButton6.getText().equals(mButton5.getText())) && (mButton6.getText().equals(mButton4.getText()))
@@ -606,6 +628,11 @@ public class MainActivity extends AppCompatActivity {
             } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
             disabledBtnTTT();
+        }
+        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
+                !mButton5.getText().equals("") && !mButton1.getText().equals("") && !mButton7.getText().equals("") &&
+                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
+            mTxtViewResult.setText("Result: DRAW");
         }
     }
     public void checkWinnerBtn7() {
@@ -619,6 +646,11 @@ public class MainActivity extends AppCompatActivity {
                 mTxtViewResult.setText("Result: Player 2 Wins");
             disabledBtnTTT();
         }
+        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
+                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton1.getText().equals("") &&
+                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
+            mTxtViewResult.setText("Result: DRAW");
+        }
     }
     public void checkWinnerBtn8() {
         if ((mButton8.getText().equals(mButton7.getText())) && (mButton8.getText().equals(mButton9.getText()))
@@ -629,6 +661,11 @@ public class MainActivity extends AppCompatActivity {
             } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
             disabledBtnTTT();
+        }
+        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
+                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
+                !mButton1.getText().equals("") && !mButton9.getText().equals("")){
+            mTxtViewResult.setText("Result: DRAW");
         }
     }
     public void checkWinnerBtn9() {
@@ -641,6 +678,11 @@ public class MainActivity extends AppCompatActivity {
             } else
                 mTxtViewResult.setText("Result: Player 2 Wins");
             disabledBtnTTT();
+        }
+        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
+                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
+                !mButton8.getText().equals("") && !mButton1.getText().equals("")){
+            mTxtViewResult.setText("Result: DRAW");
         }
     }
 
