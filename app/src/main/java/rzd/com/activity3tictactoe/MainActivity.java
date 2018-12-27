@@ -671,7 +671,7 @@ public class MainActivity extends AppCompatActivity {
     public void checkWinnerBtn9() {
         if ((mButton9.getText().equals(mButton8.getText())) && (mButton9.getText().equals(mButton7.getText()))
                 || (mButton9.getText().equals(mButton6.getText()) && (mButton9.getText().equals(mButton3.getText())))
-                || (mButton9.getText().equals(mButton5.getText()) && (mButton7.getText().equals(mButton1.getText())))) {
+                || (mButton9.getText().equals(mButton5.getText()) && (mButton9.getText().equals(mButton1.getText())))) {
             if (mPlayerTurn == 1) {
                 mTxtViewResult.setText("Result: Player 1 Wins");
                 disabledBtnTTT();
