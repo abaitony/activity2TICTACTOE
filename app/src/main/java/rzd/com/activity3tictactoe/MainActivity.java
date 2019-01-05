@@ -97,8 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
         }
-
-    //    onclick Button Color
+       //set color
     public void mBtnColor1P1() {
         mButtonColorRedP1.setText("SELECTED");
         mButtonColorRedP2.setText("");
@@ -175,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPlayerTurn = 0;
     }
 
+    //check player turn
     public void checkPlayerTurn(){
         mPlayerTurn = (mPlayerTurn + 1) % 2;
     }

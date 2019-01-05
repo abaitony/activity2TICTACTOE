@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">activity3(TICTACTOE)</string>
+    <string name="tic_tac_toe">TIC-TAC-TOE</string>
 </resources>

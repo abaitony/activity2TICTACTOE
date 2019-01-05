@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TIC-TAC-TOE"
+            android:text="@string/tic_tac_toe"
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -171,14 +171,16 @@
         android:textStyle="bold" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnReset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="RESET" />
 
         <Button
@@ -186,6 +188,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="175dp"
+            android:layout_weight="1"
             android:text="Hide Settings"
             android:textSize="12sp" />
     </LinearLayout>
@@ -245,7 +248,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
-                android:layout_weight="0"
+                android:layout_weight="1"
                 android:background="@android:color/holo_red_dark" />
 
             <Button
@@ -254,7 +257,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
-                android:layout_weight="0"
+                android:layout_weight="1"
                 android:background="@color/colorPrimary" />
 
             <Button
@@ -263,7 +266,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
-                android:layout_weight="0"
+                android:layout_weight="1"
                 android:background="@color/colorPrimaryDark" />
         </LinearLayout>
 
@@ -313,7 +316,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
-                android:layout_weight="0"
+                android:layout_weight="1"
                 android:background="@android:color/holo_red_dark" />
 
             <Button
@@ -322,7 +325,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
-                android:layout_weight="0"
+                android:layout_weight="1"
                 android:background="@color/colorPrimary" />
 
             <Button
@@ -331,7 +334,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="5dp"
-                android:layout_weight="0"
+                android:layout_weight="1"
                 android:background="@color/colorPrimaryDark" />
         </LinearLayout>
 
