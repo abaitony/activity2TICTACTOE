@@ -11,9 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
 
     LinearLayout mLLayoutPlayer;
@@ -54,46 +53,53 @@ public class MainActivity extends AppCompatActivity {
         mButtonColorBlueP2 = findViewById(R.id.btnColor3P2);
         mTxtViewResult = findViewById(R.id.txtViewResult);
 
-    }
-    //onclick of 3x3
-    public void mButton1(View v) {
-        startBtn1();
-    }
-
-    public void mButton2(View v) {
-        startBtn2();
-    }
-
-    public void mButton3(View v) {
-        startBtn3();
-    }
-
-    public void mButton4(View v) {
-        startBtn4();
-    }
-
-    public void mButton5(View v) {
-        startBtn5();
+        mButton1.setOnClickListener(this);
+        mButton2.setOnClickListener(this);
+        mButton3.setOnClickListener(this);
+        mButton4.setOnClickListener(this);
+        mButton5.setOnClickListener(this);
+        mButton6.setOnClickListener(this);
+        mButton7.setOnClickListener(this);
+        mButton8.setOnClickListener(this);
+        mButton9.setOnClickListener(this);
+        mButtonColorYellowP1.setOnClickListener(this);
+        mButtonColorYellowP2.setOnClickListener(this);
+        mButtonColorRedP1.setOnClickListener(this);
+        mButtonColorRedP2.setOnClickListener(this);
+        mButtonColorBlueP1.setOnClickListener(this);
+        mButtonColorBlueP2.setOnClickListener(this);
+        mButtonReset.setOnClickListener(this);
+        mBtnSettings.setOnClickListener(this);
     }
 
-    public void mButton6(View v) {
-        startBtn6();
-    }
 
-    public void mButton7(View v) {
-        startBtn7();
-    }
+    @Override
+    public void onClick(View v){
+        switch(v.getId()){
+            case R.id.btn1: startBtn1(); break;
+            case R.id.btn2: startBtn2(); break;
+            case R.id.btn3: startBtn3(); break;
+            case R.id.btn4: startBtn4(); break;
+            case R.id.btn5: startBtn5(); break;
+            case R.id.btn6: startBtn6(); break;
+            case R.id.btn7: startBtn7(); break;
+            case R.id.btn8: startBtn8(); break;
+            case R.id.btn9: startBtn9(); break;
+            case R.id.btnColor1P1: mBtnColor1P1(); break;
+            case R.id.btnColor1P2: mBtnColor1P2(); break;
+            case R.id.btnColor2P1: mBtnColor2P1(); break;
+            case R.id.btnColor2P2: mBtnColor2P2(); break;
+            case R.id.btnColor3P1: mBtnColor3P1(); break;
+            case R.id.btnColor3P2: mBtnColor3P2(); break;
+            case R.id.btnSettings: mBtnSettings(); break;
+            case R.id.btnReset: btnReset(); break;
 
-    public void mButton8(View v) {
-        startBtn8();
-    }
 
-    public void mButton9(View v) {
-        startBtn9();
-    }
+        }
+        }
 
     //    onclick Button Color
-    public void mBtnColor1P1(View v) {
+    public void mBtnColor1P1() {
         mButtonColorRedP1.setText("SELECTED");
         mButtonColorRedP2.setText("");
         mButtonColorBlueP1.setText("");
@@ -102,8 +108,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonColorBlueP2.setClickable(true);
         mButtonColorYellowP2.setClickable(true);
     }
-
-    public void mBtnColor1P2(View v) {
+    public void mBtnColor1P2() {
         mButtonColorRedP2.setText("SELECTED");
         mButtonColorRedP1.setText("");
         mButtonColorBlueP2.setText("");
@@ -112,8 +117,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonColorBlueP1.setClickable(true);
         mButtonColorYellowP1.setClickable(true);
     }
-
-    public void mBtnColor2P1(View v) {
+    public void mBtnColor2P1() {
         mButtonColorYellowP1.setText("SELECTED");
         mButtonColorYellowP2.setText("");
         mButtonColorRedP1.setText("");
@@ -122,8 +126,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonColorBlueP2.setClickable(true);
         mButtonColorRedP2.setClickable(true);
     }
-
-    public void mBtnColor2P2(View v) {
+    public void mBtnColor2P2() {
         mButtonColorYellowP2.setText("SELECTED");
         mButtonColorYellowP1.setText("");
         mButtonColorBlueP2.setText("");
@@ -132,8 +135,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonColorBlueP1.setClickable(true);
         mButtonColorRedP1.setClickable(true);
     }
-
-    public void mBtnColor3P1(View v) {
+    public void mBtnColor3P1() {
         mButtonColorBlueP1.setText("SELECTED");
         mButtonColorBlueP2.setText("");
         mButtonColorRedP1.setText("");
@@ -142,8 +144,7 @@ public class MainActivity extends AppCompatActivity {
         mButtonColorRedP2.setClickable(true);
         mButtonColorYellowP2.setClickable(true);
     }
-
-    public void mBtnColor3P2(View v) {
+    public void mBtnColor3P2() {
         mButtonColorBlueP2.setText("SELECTED");
         mButtonColorBlueP1.setText("");
         mButtonColorRedP2.setText("");
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //show // hide settings
-    public void mBtnSettings(View v) {
+    public void mBtnSettings() {
         if (mLLayoutPlayer.getVisibility() == View.VISIBLE) {
             mLLayoutPlayer.setVisibility(LinearLayout.GONE);
             mBtnSettings.setText("Show Settings");
@@ -167,11 +168,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //reset game
-    public void btnReset(View v) {
+    public void btnReset() {
         setViewAndChildrenEnabled(mLLayoutPlayer, true);
         resetTicTacToeBtn();
         mTxtViewResult.setText("Result");
         mPlayerTurn = 0;
+    }
+
+    public void checkPlayerTurn(){
+        mPlayerTurn = (mPlayerTurn + 1) % 2;
     }
 
     //inputting of symbols and background color
@@ -182,11 +187,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (compareSymbol() == true) {
             alertDialogSymbol();
-        } else if (checkColor() == true) {
+        }
+        else if (checkColor() == true) {
             alertDialogColor();
-        } else {
+        }
+        else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            mPlayerTurn = (mPlayerTurn + 1) % 2;
+            checkPlayerTurn();
 
             if (mPlayerTurn == 1) {
                 mButton1.setText(mEditTxtP1.getText());
@@ -219,11 +226,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (compareSymbol() == true) {
             alertDialogSymbol();
-        } else if (checkColor() == true) {
+        }
+        else if (checkColor() == true) {
             alertDialogColor();
-        } else {
+        }
+        else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            mPlayerTurn = (mPlayerTurn + 1) % 2;
+            checkPlayerTurn();
             if (mPlayerTurn == 1) {
                 mButton2.setText(mEditTxtP1.getText());
                 mButton2.setEnabled(false);
@@ -252,11 +261,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (compareSymbol() == true) {
             alertDialogSymbol();
-        } else if (checkColor() == true) {
+        }
+        else if (checkColor() == true) {
             alertDialogColor();
-        } else {
+        }
+        else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            mPlayerTurn = (mPlayerTurn + 1) % 2;
+            checkPlayerTurn();
             if (mPlayerTurn == 1) {
                 mButton3.setText(mEditTxtP1.getText());
                 mButton3.setEnabled(false);
@@ -285,11 +296,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (compareSymbol() == true) {
             alertDialogSymbol();
-        } else if (checkColor() == true) {
+        }
+        else if (checkColor() == true) {
             alertDialogColor();
-        } else {
+        }
+        else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            mPlayerTurn = (mPlayerTurn + 1) % 2;
+            checkPlayerTurn();
             if (mPlayerTurn == 1) {
                 mButton4.setText(mEditTxtP1.getText());
                 mButton4.setEnabled(false);
@@ -318,11 +331,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (compareSymbol() == true) {
             alertDialogSymbol();
-        } else if (checkColor() == true) {
+        }
+        else if (checkColor() == true) {
             alertDialogColor();
-        } else {
+        }
+        else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            mPlayerTurn = (mPlayerTurn + 1) % 2;
+            checkPlayerTurn();
             if (mPlayerTurn == 1) {
                 mButton5.setText(mEditTxtP1.getText());
                 mButton5.setEnabled(false);
@@ -351,11 +366,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (compareSymbol() == true) {
             alertDialogSymbol();
-        } else if (checkColor() == true) {
+        }
+        else if (checkColor() == true) {
             alertDialogColor();
-        } else {
+        }
+        else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            mPlayerTurn = (mPlayerTurn + 1) % 2;
+           checkPlayerTurn();
             if (mPlayerTurn == 1) {
                 mButton6.setText(mEditTxtP1.getText());
                 mButton6.setEnabled(false);
@@ -384,11 +401,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (compareSymbol() == true) {
             alertDialogSymbol();
-        } else if (checkColor() == true) {
+        }
+        else if (checkColor() == true) {
             alertDialogColor();
-        } else {
+        }
+        else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            mPlayerTurn = (mPlayerTurn + 1) % 2;
+            checkPlayerTurn();
             if (mPlayerTurn == 1) {
                 mButton7.setText(mEditTxtP1.getText());
                 mButton7.setEnabled(false);
@@ -417,11 +436,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (compareSymbol() == true) {
             alertDialogSymbol();
-        } else if (checkColor() == true) {
+        }
+        else if (checkColor() == true) {
             alertDialogColor();
-        } else {
+        }
+        else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            mPlayerTurn = (mPlayerTurn + 1) % 2;
+            checkPlayerTurn();
             if (mPlayerTurn == 1) {
                 mButton8.setText(mEditTxtP1.getText());
                 mButton8.setEnabled(false);
@@ -450,11 +471,13 @@ public class MainActivity extends AppCompatActivity {
         }
         else if (compareSymbol() == true) {
             alertDialogSymbol();
-        } else if (checkColor() == true) {
+        }
+        else if (checkColor() == true) {
             alertDialogColor();
-        } else {
+        }
+        else {
             setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            mPlayerTurn = (mPlayerTurn + 1) % 2;
+            checkPlayerTurn();
             if (mPlayerTurn == 1) {
                 mButton9.setText(mEditTxtP1.getText());
                 mButton9.setEnabled(false);
@@ -478,7 +501,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //enabled disabled layout view for radiobutton and color
+    //enabled disabled layout view for edittext and color
     private static void setViewAndChildrenEnabled(View view, boolean enabled) {
         view.setEnabled(enabled);
         if (view instanceof ViewGroup) {
