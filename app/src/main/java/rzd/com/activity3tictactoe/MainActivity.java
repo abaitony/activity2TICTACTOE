@@ -76,83 +76,147 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v){
         switch(v.getId()){
-            case R.id.btn1: startBtn1(); break;
-            case R.id.btn2: startBtn2(); break;
-            case R.id.btn3: startBtn3(); break;
-            case R.id.btn4: startBtn4(); break;
-            case R.id.btn5: startBtn5(); break;
-            case R.id.btn6: startBtn6(); break;
-            case R.id.btn7: startBtn7(); break;
-            case R.id.btn8: startBtn8(); break;
-            case R.id.btn9: startBtn9(); break;
-            case R.id.btnColor1P1: mBtnColor1P1(); break;
-            case R.id.btnColor1P2: mBtnColor1P2(); break;
-            case R.id.btnColor2P1: mBtnColor2P1(); break;
-            case R.id.btnColor2P2: mBtnColor2P2(); break;
-            case R.id.btnColor3P1: mBtnColor3P1(); break;
-            case R.id.btnColor3P2: mBtnColor3P2(); break;
+            case R.id.btn1: startBtn(mButton1); break;
+            case R.id.btn2: startBtn(mButton2); break;
+            case R.id.btn3: startBtn(mButton3); break;
+            case R.id.btn4: startBtn(mButton4); break;
+            case R.id.btn5: startBtn(mButton5); break;
+            case R.id.btn6: startBtn(mButton6); break;
+            case R.id.btn7: startBtn(mButton7); break;
+            case R.id.btn8: startBtn(mButton8); break;
+            case R.id.btn9: startBtn(mButton9); break;
+            case R.id.btnColor1P1: mBtnColor(mButtonColorRedP1,mButtonColorRedP2,mButtonColorBlueP1,mButtonColorYellowP1,mButtonColorBlueP2,mButtonColorYellowP2); break;
+            case R.id.btnColor1P2: mBtnColor(mButtonColorRedP2,mButtonColorRedP1,mButtonColorBlueP2,mButtonColorYellowP2,mButtonColorBlueP1,mButtonColorYellowP1); break;
+            case R.id.btnColor2P1: mBtnColor(mButtonColorYellowP1,mButtonColorYellowP2,mButtonColorRedP1,mButtonColorBlueP1,mButtonColorBlueP2,mButtonColorRedP2); break;
+            case R.id.btnColor2P2: mBtnColor(mButtonColorYellowP2,mButtonColorYellowP1,mButtonColorBlueP2,mButtonColorRedP2,mButtonColorBlueP1,mButtonColorRedP1); break;
+            case R.id.btnColor3P1: mBtnColor(mButtonColorBlueP1,mButtonColorBlueP2,mButtonColorRedP1,mButtonColorYellowP1,mButtonColorRedP2,mButtonColorYellowP2); break;
+            case R.id.btnColor3P2: mBtnColor(mButtonColorBlueP2,mButtonColorBlueP1,mButtonColorRedP2,mButtonColorYellowP2,mButtonColorRedP1,mButtonColorYellowP1); break;
             case R.id.btnSettings: mBtnSettings(); break;
             case R.id.btnReset: btnReset(); break;
 
 
         }
         }
-       //set color
-    public void mBtnColor1P1() {
-        mButtonColorRedP1.setText("SELECTED");
-        mButtonColorRedP2.setText("");
-        mButtonColorBlueP1.setText("");
-        mButtonColorYellowP1.setText("");
-        mButtonColorRedP2.setClickable(false);
-        mButtonColorBlueP2.setClickable(true);
-        mButtonColorYellowP2.setClickable(true);
-    }
-    public void mBtnColor1P2() {
-        mButtonColorRedP2.setText("SELECTED");
-        mButtonColorRedP1.setText("");
-        mButtonColorBlueP2.setText("");
-        mButtonColorYellowP2.setText("");
-        mButtonColorRedP1.setClickable(false);
-        mButtonColorBlueP1.setClickable(true);
-        mButtonColorYellowP1.setClickable(true);
-    }
-    public void mBtnColor2P1() {
-        mButtonColorYellowP1.setText("SELECTED");
-        mButtonColorYellowP2.setText("");
-        mButtonColorRedP1.setText("");
-        mButtonColorBlueP1.setText("");
-        mButtonColorYellowP2.setClickable(false);
-        mButtonColorBlueP2.setClickable(true);
-        mButtonColorRedP2.setClickable(true);
-    }
-    public void mBtnColor2P2() {
-        mButtonColorYellowP2.setText("SELECTED");
-        mButtonColorYellowP1.setText("");
-        mButtonColorBlueP2.setText("");
-        mButtonColorRedP2.setText("");
-        mButtonColorYellowP1.setClickable(false);
-        mButtonColorBlueP1.setClickable(true);
-        mButtonColorRedP1.setClickable(true);
-    }
-    public void mBtnColor3P1() {
-        mButtonColorBlueP1.setText("SELECTED");
-        mButtonColorBlueP2.setText("");
-        mButtonColorRedP1.setText("");
-        mButtonColorYellowP1.setText("");
-        mButtonColorBlueP2.setClickable(false);
-        mButtonColorRedP2.setClickable(true);
-        mButtonColorYellowP2.setClickable(true);
-    }
-    public void mBtnColor3P2() {
-        mButtonColorBlueP2.setText("SELECTED");
-        mButtonColorBlueP1.setText("");
-        mButtonColorRedP2.setText("");
-        mButtonColorYellowP2.setText("");
-        mButtonColorBlueP1.setClickable(false);
-        mButtonColorRedP1.setClickable(true);
-        mButtonColorYellowP1.setClickable(true);
+
+        //start game
+    public void startBtn(Button mbtn) {
+
+        if (checkEmpty() == true) {
+            alertDialogEmpty();
+        } else if (compareSymbol() == true) {
+            alertDialogSymbol();
+        } else if (checkColor() == true) {
+            alertDialogColor();
+        } else {
+            setViewAndChildrenEnabled(mLLayoutPlayer, false);
+            checkPlayerTurn();
+
+            if (mPlayerTurn == 1) {
+                mbtn.setText(mEditTxtP1.getText());
+                mbtn.setEnabled(false);
+                if (mButtonColorRedP1.getText().equals("SELECTED"))
+                    mbtn.setBackgroundColor(Color.RED);
+                else if (mButtonColorBlueP1.getText().equals("SELECTED"))
+                    mbtn.setBackgroundColor(Color.BLUE);
+                else if (mButtonColorYellowP1.getText().equals("SELECTED"))
+                    mbtn.setBackgroundColor(Color.YELLOW);
+
+
+            } else {
+                mbtn.setText(mEditTxtP2.getText());
+                mbtn.setEnabled(false);
+                if (mButtonColorRedP2.getText().equals("SELECTED"))
+                    mbtn.setBackgroundColor(Color.RED);
+                else if (mButtonColorBlueP2.getText().equals("SELECTED"))
+                    mbtn.setBackgroundColor(Color.BLUE);
+                else if (mButtonColorYellowP2.getText().equals("SELECTED"))
+                    mbtn.setBackgroundColor(Color.YELLOW);
+
+            }
+            if(mbtn == mButton1)
+                checkWinnerBtn1379(mButton1,mButton2,mButton3,mButton5,mButton9,mButton4,mButton7);
+            else if(mbtn == mButton3)
+                checkWinnerBtn1379(mButton3,mButton2,mButton1,mButton5,mButton7,mButton6,mButton9);
+            else if(mbtn == mButton7)
+                checkWinnerBtn1379(mButton7,mButton4,mButton1,mButton8,mButton9,mButton5,mButton3);
+            else if(mbtn == mButton9)
+                checkWinnerBtn1379(mButton9,mButton8,mButton7,mButton6,mButton3,mButton5,mButton1);
+            else if(mbtn == mButton2)
+                checkWinnerBtn2468(mButton2,mButton1,mButton3,mButton5,mButton8);
+            else if(mbtn == mButton4)
+                checkWinnerBtn2468(mButton4,mButton1,mButton7,mButton5,mButton6);
+            else if(mbtn == mButton6)
+                checkWinnerBtn2468(mButton6,mButton4,mButton5,mButton3,mButton9);
+            else if(mbtn == mButton8)
+                checkWinnerBtn2468(mButton8,mButton7,mButton9,mButton5,mButton2);
+            else if(mbtn == mButton5)
+                checkWinnerBtn5();
+
+        }
     }
 
+    //check winner
+    public void checkWinnerBtn2468(Button mbtn1, Button mbtn2, Button mbtn3, Button mbtn4, Button mbtn5) {
+        if ((mbtn1.getText().equals(mbtn2.getText())) && (mbtn1.getText().equals(mbtn3.getText()))
+                || (mbtn1.getText().equals(mbtn4.getText()) && (mbtn1.getText().equals(mbtn5.getText())))) {
+            if (mPlayerTurn == 1) {
+                mTxtViewResult.setText("Result: Player 1 Wins");
+                disabledBtnTTT();
+            } else
+                mTxtViewResult.setText("Result: Player 2 Wins");
+            disabledBtnTTT();
+        }
+        else if(!mButton1.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
+                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
+                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
+            mTxtViewResult.setText("Result: DRAW");
+        }
+    }
+    public void checkWinnerBtn1379(Button mbtn1, Button mbtn2, Button mbtn3, Button mbtn4, Button mbtn5, Button mbtn6, Button mbtn7) {
+        if ((mbtn1.getText().equals(mbtn2.getText())) && (mbtn1.getText().equals(mbtn3.getText()))
+                || (mbtn1.getText().equals(mbtn4.getText()) && (mbtn1.getText().equals(mbtn5.getText())))
+                || (mbtn1.getText().equals(mbtn6.getText()) && (mbtn1.getText().equals(mbtn7.getText())))) {
+            if (mPlayerTurn == 1) {
+                mTxtViewResult.setText("Result: Player 1 Wins");
+                disabledBtnTTT();
+            } else
+                mTxtViewResult.setText("Result: Player 2 Wins");
+            disabledBtnTTT();
+        }
+        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
+                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
+                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
+            mTxtViewResult.setText("Result: DRAW");
+        }
+    }
+    public void checkWinnerBtn5() {
+        if ((mButton5.getText().equals(mButton4.getText())) && (mButton5.getText().equals(mButton6.getText()))
+                || (mButton5.getText().equals(mButton2.getText())) && (mButton5.getText().equals(mButton8.getText()))
+                || (mButton5.getText().equals(mButton1.getText())) && (mButton5.getText().equals(mButton9.getText()))
+                || (mButton5.getText().equals(mButton3.getText())) && (mButton5.getText().equals(mButton7.getText()))) {
+            if (mPlayerTurn == 1) {
+                mTxtViewResult.setText("Result: Player 1 Wins");
+                disabledBtnTTT();
+            } else
+                mTxtViewResult.setText("Result: Player 2 Wins");
+            disabledBtnTTT();
+        }
+        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
+                !mButton1.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
+                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
+            mTxtViewResult.setText("Result: DRAW");
+        }
+    }
+       //set color
+    public void mBtnColor(Button mBtn1, Button mBtn2, Button mBtn3, Button mBtn4, Button mBtn5, Button mBtn6) {
+           mBtn1.setText("SELECTED");
+           mBtn2.setText("");
+           mBtn3.setText("");
+           mBtn4.setText("");
+           mBtn2.setClickable(false);
+           mBtn5.setClickable(true);
+           mBtn6.setClickable(true);
+       }
     //show // hide settings
     public void mBtnSettings() {
         if (mLLayoutPlayer.getVisibility() == View.VISIBLE) {
@@ -165,7 +229,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-
     //reset game
     public void btnReset() {
         setViewAndChildrenEnabled(mLLayoutPlayer, true);
@@ -177,328 +240,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //check player turn
     public void checkPlayerTurn(){
         mPlayerTurn = (mPlayerTurn + 1) % 2;
-    }
-
-    //inputting of symbols and background color
-    public void startBtn1() {
-
-        if(checkEmpty() == true){
-            alertDialogEmpty();
-        }
-        else if (compareSymbol() == true) {
-            alertDialogSymbol();
-        }
-        else if (checkColor() == true) {
-            alertDialogColor();
-        }
-        else {
-            setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            checkPlayerTurn();
-
-            if (mPlayerTurn == 1) {
-                mButton1.setText(mEditTxtP1.getText());
-                mButton1.setEnabled(false);
-                if (mButtonColorRedP1.getText().equals("SELECTED"))
-                    mButton1.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP1.getText().equals("SELECTED"))
-                    mButton1.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP1.getText().equals("SELECTED"))
-                    mButton1.setBackgroundColor(Color.YELLOW);
-
-
-            } else {
-                mButton1.setText(mEditTxtP2.getText());
-                mButton1.setEnabled(false);
-                if (mButtonColorRedP2.getText().equals("SELECTED"))
-                    mButton1.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP2.getText().equals("SELECTED"))
-                    mButton1.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP2.getText().equals("SELECTED"))
-                    mButton1.setBackgroundColor(Color.YELLOW);
-
-            }
-            checkWinnerBtn1();
-        }
-    }
-    public void startBtn2() {
-        if(checkEmpty() == true){
-            alertDialogEmpty();
-        }
-        else if (compareSymbol() == true) {
-            alertDialogSymbol();
-        }
-        else if (checkColor() == true) {
-            alertDialogColor();
-        }
-        else {
-            setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            checkPlayerTurn();
-            if (mPlayerTurn == 1) {
-                mButton2.setText(mEditTxtP1.getText());
-                mButton2.setEnabled(false);
-                if (mButtonColorRedP1.getText().equals("SELECTED"))
-                    mButton2.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP1.getText().equals("SELECTED"))
-                    mButton2.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP1.getText().equals("SELECTED"))
-                    mButton2.setBackgroundColor(Color.YELLOW);
-            } else {
-                mButton2.setText(mEditTxtP2.getText());
-                mButton2.setEnabled(false);
-                if (mButtonColorRedP2.getText().equals("SELECTED"))
-                    mButton2.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP2.getText().equals("SELECTED"))
-                    mButton2.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP2.getText().equals("SELECTED"))
-                    mButton2.setBackgroundColor(Color.YELLOW);
-            }
-            checkWinnerBtn2();
-        }
-    }
-    public void startBtn3() {
-        if(checkEmpty() == true){
-            alertDialogEmpty();
-        }
-        else if (compareSymbol() == true) {
-            alertDialogSymbol();
-        }
-        else if (checkColor() == true) {
-            alertDialogColor();
-        }
-        else {
-            setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            checkPlayerTurn();
-            if (mPlayerTurn == 1) {
-                mButton3.setText(mEditTxtP1.getText());
-                mButton3.setEnabled(false);
-                if (mButtonColorRedP1.getText().equals("SELECTED"))
-                    mButton3.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP1.getText().equals("SELECTED"))
-                    mButton3.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP1.getText().equals("SELECTED"))
-                    mButton3.setBackgroundColor(Color.YELLOW);
-            } else {
-                mButton3.setText(mEditTxtP2.getText());
-                mButton3.setEnabled(false);
-                if (mButtonColorRedP2.getText().equals("SELECTED"))
-                    mButton3.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP2.getText().equals("SELECTED"))
-                    mButton3.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP2.getText().equals("SELECTED"))
-                    mButton3.setBackgroundColor(Color.YELLOW);
-            }
-            checkWinnerBtn3();
-        }
-    }
-    public void startBtn4() {
-        if(checkEmpty() == true){
-            alertDialogEmpty();
-        }
-        else if (compareSymbol() == true) {
-            alertDialogSymbol();
-        }
-        else if (checkColor() == true) {
-            alertDialogColor();
-        }
-        else {
-            setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            checkPlayerTurn();
-            if (mPlayerTurn == 1) {
-                mButton4.setText(mEditTxtP1.getText());
-                mButton4.setEnabled(false);
-                if (mButtonColorRedP1.getText().equals("SELECTED"))
-                    mButton4.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP1.getText().equals("SELECTED"))
-                    mButton4.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP1.getText().equals("SELECTED"))
-                    mButton4.setBackgroundColor(Color.YELLOW);
-            } else {
-                mButton4.setText(mEditTxtP2.getText());
-                mButton4.setEnabled(false);
-                if (mButtonColorRedP2.getText().equals("SELECTED"))
-                    mButton4.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP2.getText().equals("SELECTED"))
-                    mButton4.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP2.getText().equals("SELECTED"))
-                    mButton4.setBackgroundColor(Color.YELLOW);
-            }
-            checkWinnerBtn4();
-        }
-    }
-    public void startBtn5() {
-        if(checkEmpty() == true){
-            alertDialogEmpty();
-        }
-        else if (compareSymbol() == true) {
-            alertDialogSymbol();
-        }
-        else if (checkColor() == true) {
-            alertDialogColor();
-        }
-        else {
-            setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            checkPlayerTurn();
-            if (mPlayerTurn == 1) {
-                mButton5.setText(mEditTxtP1.getText());
-                mButton5.setEnabled(false);
-                if (mButtonColorRedP1.getText().equals("SELECTED"))
-                    mButton5.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP1.getText().equals("SELECTED"))
-                    mButton5.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP1.getText().equals("SELECTED"))
-                    mButton5.setBackgroundColor(Color.YELLOW);
-            } else {
-                mButton5.setText(mEditTxtP2.getText());
-                mButton5.setEnabled(false);
-                if (mButtonColorRedP2.getText().equals("SELECTED"))
-                    mButton5.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP2.getText().equals("SELECTED"))
-                    mButton5.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP2.getText().equals("SELECTED"))
-                    mButton5.setBackgroundColor(Color.YELLOW);
-            }
-            checkWinnerBtn5();
-        }
-    }
-    public void startBtn6() {
-        if(checkEmpty() == true){
-            alertDialogEmpty();
-        }
-        else if (compareSymbol() == true) {
-            alertDialogSymbol();
-        }
-        else if (checkColor() == true) {
-            alertDialogColor();
-        }
-        else {
-            setViewAndChildrenEnabled(mLLayoutPlayer, false);
-           checkPlayerTurn();
-            if (mPlayerTurn == 1) {
-                mButton6.setText(mEditTxtP1.getText());
-                mButton6.setEnabled(false);
-                if (mButtonColorRedP1.getText().equals("SELECTED"))
-                    mButton6.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP1.getText().equals("SELECTED"))
-                    mButton6.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP1.getText().equals("SELECTED"))
-                    mButton6.setBackgroundColor(Color.YELLOW);
-            } else {
-                mButton6.setText(mEditTxtP2.getText());
-                mButton6.setEnabled(false);
-                if (mButtonColorRedP2.getText().equals("SELECTED"))
-                    mButton6.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP2.getText().equals("SELECTED"))
-                    mButton6.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP2.getText().equals("SELECTED"))
-                    mButton6.setBackgroundColor(Color.YELLOW);
-            }
-            checkWinnerBtn6();
-        }
-    }
-    public void startBtn7() {
-        if(checkEmpty() == true){
-            alertDialogEmpty();
-        }
-        else if (compareSymbol() == true) {
-            alertDialogSymbol();
-        }
-        else if (checkColor() == true) {
-            alertDialogColor();
-        }
-        else {
-            setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            checkPlayerTurn();
-            if (mPlayerTurn == 1) {
-                mButton7.setText(mEditTxtP1.getText());
-                mButton7.setEnabled(false);
-                if (mButtonColorRedP1.getText().equals("SELECTED"))
-                    mButton7.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP1.getText().equals("SELECTED"))
-                    mButton7.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP1.getText().equals("SELECTED"))
-                    mButton7.setBackgroundColor(Color.YELLOW);
-            } else {
-                mButton7.setText(mEditTxtP2.getText());
-                mButton7.setEnabled(false);
-                if (mButtonColorRedP2.getText().equals("SELECTED"))
-                    mButton7.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP2.getText().equals("SELECTED"))
-                    mButton7.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP2.getText().equals("SELECTED"))
-                    mButton7.setBackgroundColor(Color.YELLOW);
-            }
-            checkWinnerBtn7();
-        }
-    }
-    public void startBtn8() {
-        if(checkEmpty() == true){
-            alertDialogEmpty();
-        }
-        else if (compareSymbol() == true) {
-            alertDialogSymbol();
-        }
-        else if (checkColor() == true) {
-            alertDialogColor();
-        }
-        else {
-            setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            checkPlayerTurn();
-            if (mPlayerTurn == 1) {
-                mButton8.setText(mEditTxtP1.getText());
-                mButton8.setEnabled(false);
-                if (mButtonColorRedP1.getText().equals("SELECTED"))
-                    mButton8.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP1.getText().equals("SELECTED"))
-                    mButton8.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP1.getText().equals("SELECTED"))
-                    mButton8.setBackgroundColor(Color.YELLOW);
-            } else {
-                mButton8.setText(mEditTxtP2.getText());
-                mButton8.setEnabled(false);
-                if (mButtonColorRedP2.getText().equals("SELECTED"))
-                    mButton8.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP2.getText().equals("SELECTED"))
-                    mButton8.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP2.getText().equals("SELECTED"))
-                    mButton8.setBackgroundColor(Color.YELLOW);
-            }
-            checkWinnerBtn8();
-        }
-    }
-    public void startBtn9() {
-        if(checkEmpty() == true){
-            alertDialogEmpty();
-        }
-        else if (compareSymbol() == true) {
-            alertDialogSymbol();
-        }
-        else if (checkColor() == true) {
-            alertDialogColor();
-        }
-        else {
-            setViewAndChildrenEnabled(mLLayoutPlayer, false);
-            checkPlayerTurn();
-            if (mPlayerTurn == 1) {
-                mButton9.setText(mEditTxtP1.getText());
-                mButton9.setEnabled(false);
-                if (mButtonColorRedP1.getText().equals("SELECTED"))
-                    mButton9.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP1.getText().equals("SELECTED"))
-                    mButton9.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP1.getText().equals("SELECTED"))
-                    mButton9.setBackgroundColor(Color.YELLOW);
-            } else {
-                mButton9.setText(mEditTxtP2.getText());
-                mButton9.setEnabled(false);
-                if (mButtonColorRedP2.getText().equals("SELECTED"))
-                    mButton9.setBackgroundColor(Color.RED);
-                else if (mButtonColorBlueP2.getText().equals("SELECTED"))
-                    mButton9.setBackgroundColor(Color.BLUE);
-                else if (mButtonColorYellowP2.getText().equals("SELECTED"))
-                    mButton9.setBackgroundColor(Color.YELLOW);
-            }
-            checkWinnerBtn9();
-        }
     }
 
     //enabled disabled layout view for edittext and color
@@ -556,157 +297,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mButton7.setEnabled(false);
         mButton8.setEnabled(false);
         mButton9.setEnabled(false);
-    }
-
-    public void checkWinnerBtn1() {
-        if ((mButton1.getText().equals(mButton2.getText())) && (mButton1.getText().equals(mButton3.getText()))
-                || (mButton1.getText().equals(mButton5.getText()) && (mButton1.getText().equals(mButton9.getText())))
-                || (mButton1.getText().equals(mButton4.getText()) && (mButton1.getText().equals(mButton7.getText())))) {
-            if (mPlayerTurn == 1) {
-                mTxtViewResult.setText("Result: Player 1 Wins");
-                disabledBtnTTT();
-            } else
-                mTxtViewResult.setText("Result: Player 2 Wins");
-            disabledBtnTTT();
-        }
-        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
-                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
-                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
-            mTxtViewResult.setText("Result: DRAW");
-        }
-    }
-    public void checkWinnerBtn2() {
-        if ((mButton2.getText().equals(mButton3.getText())) && (mButton2.getText().equals(mButton1.getText()))
-                || (mButton2.getText().equals(mButton5.getText()) && (mButton2.getText().equals(mButton8.getText())))) {
-            if (mPlayerTurn == 1) {
-                mTxtViewResult.setText("Result: Player 1 Wins");
-                disabledBtnTTT();
-            } else
-                mTxtViewResult.setText("Result: Player 2 Wins");
-            disabledBtnTTT();
-        }
-        else if(!mButton1.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
-                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
-                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
-            mTxtViewResult.setText("Result: DRAW");
-        }
-    }
-    public void checkWinnerBtn3() {
-        if ((mButton3.getText().equals(mButton2.getText())) && (mButton3.getText().equals(mButton1.getText()))
-                || (mButton3.getText().equals(mButton6.getText()) && (mButton3.getText().equals(mButton9.getText())))
-                || (mButton3.getText().equals(mButton5.getText()) && (mButton3.getText().equals(mButton7.getText())))) {
-            if (mPlayerTurn == 1) {
-                mTxtViewResult.setText("Result: Player 1 Wins");
-                disabledBtnTTT();
-            } else
-                mTxtViewResult.setText("Result: Player 2 Wins");
-            disabledBtnTTT();
-        }
-        else if(!mButton2.getText().equals("") && !mButton1.getText().equals("") && !mButton4.getText().equals("") &&
-                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
-                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
-            mTxtViewResult.setText("Result: DRAW");
-        }
-    }
-    public void checkWinnerBtn4() {
-        if ((mButton4.getText().equals(mButton5.getText())) && (mButton4.getText().equals(mButton6.getText()))
-                || (mButton4.getText().equals(mButton1.getText()) && (mButton4.getText().equals(mButton7.getText())))) {
-            if (mPlayerTurn == 1) {
-                mTxtViewResult.setText("Result: Player 1 Wins");
-                disabledBtnTTT();
-            } else
-                mTxtViewResult.setText("Result: Player 2 Wins");
-            disabledBtnTTT();
-        }
-        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton1.getText().equals("") &&
-                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
-                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
-            mTxtViewResult.setText("Result: DRAW");
-        }
-    }
-    public void checkWinnerBtn5() {
-        if ((mButton5.getText().equals(mButton4.getText())) && (mButton5.getText().equals(mButton6.getText()))
-                || (mButton5.getText().equals(mButton2.getText())) && (mButton5.getText().equals(mButton8.getText()))
-                || (mButton5.getText().equals(mButton1.getText())) && (mButton5.getText().equals(mButton9.getText()))
-                || (mButton5.getText().equals(mButton3.getText())) && (mButton5.getText().equals(mButton7.getText()))) {
-            if (mPlayerTurn == 1) {
-                mTxtViewResult.setText("Result: Player 1 Wins");
-                disabledBtnTTT();
-            } else
-                mTxtViewResult.setText("Result: Player 2 Wins");
-            disabledBtnTTT();
-        }
-        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
-                !mButton1.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
-                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
-            mTxtViewResult.setText("Result: DRAW");
-        }
-    }
-    public void checkWinnerBtn6() {
-        if ((mButton6.getText().equals(mButton5.getText())) && (mButton6.getText().equals(mButton4.getText()))
-                || (mButton6.getText().equals(mButton3.getText()) && (mButton6.getText().equals(mButton9.getText())))) {
-            if (mPlayerTurn == 1) {
-                mTxtViewResult.setText("Result: Player 1 Wins");
-                disabledBtnTTT();
-            } else
-                mTxtViewResult.setText("Result: Player 2 Wins");
-            disabledBtnTTT();
-        }
-        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
-                !mButton5.getText().equals("") && !mButton1.getText().equals("") && !mButton7.getText().equals("") &&
-                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
-            mTxtViewResult.setText("Result: DRAW");
-        }
-    }
-    public void checkWinnerBtn7() {
-        if ((mButton7.getText().equals(mButton4.getText())) && (mButton7.getText().equals(mButton1.getText()))
-                || (mButton7.getText().equals(mButton8.getText()) && (mButton7.getText().equals(mButton9.getText())))
-                || (mButton7.getText().equals(mButton5.getText()) && (mButton7.getText().equals(mButton3.getText())))) {
-            if (mPlayerTurn == 1) {
-                mTxtViewResult.setText("Result: Player 1 Wins");
-                disabledBtnTTT();
-            } else
-                mTxtViewResult.setText("Result: Player 2 Wins");
-            disabledBtnTTT();
-        }
-        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
-                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton1.getText().equals("") &&
-                !mButton8.getText().equals("") && !mButton9.getText().equals("")){
-            mTxtViewResult.setText("Result: DRAW");
-        }
-    }
-    public void checkWinnerBtn8() {
-        if ((mButton8.getText().equals(mButton7.getText())) && (mButton8.getText().equals(mButton9.getText()))
-                || (mButton8.getText().equals(mButton5.getText()) && (mButton8.getText().equals(mButton2.getText())))) {
-            if (mPlayerTurn == 1) {
-                mTxtViewResult.setText("Result: Player 1 Wins");
-                disabledBtnTTT();
-            } else
-                mTxtViewResult.setText("Result: Player 2 Wins");
-            disabledBtnTTT();
-        }
-        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
-                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
-                !mButton1.getText().equals("") && !mButton9.getText().equals("")){
-            mTxtViewResult.setText("Result: DRAW");
-        }
-    }
-    public void checkWinnerBtn9() {
-        if ((mButton9.getText().equals(mButton8.getText())) && (mButton9.getText().equals(mButton7.getText()))
-                || (mButton9.getText().equals(mButton6.getText()) && (mButton9.getText().equals(mButton3.getText())))
-                || (mButton9.getText().equals(mButton5.getText()) && (mButton9.getText().equals(mButton1.getText())))) {
-            if (mPlayerTurn == 1) {
-                mTxtViewResult.setText("Result: Player 1 Wins");
-                disabledBtnTTT();
-            } else
-                mTxtViewResult.setText("Result: Player 2 Wins");
-            disabledBtnTTT();
-        }
-        else if(!mButton2.getText().equals("") && !mButton3.getText().equals("") && !mButton4.getText().equals("") &&
-                !mButton5.getText().equals("") && !mButton6.getText().equals("") && !mButton7.getText().equals("") &&
-                !mButton8.getText().equals("") && !mButton1.getText().equals("")){
-            mTxtViewResult.setText("Result: DRAW");
-        }
     }
 
     public boolean compareSymbol() {
